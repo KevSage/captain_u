@@ -10,10 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_24_115546) do
+ActiveRecord::Schema.define(version: 2021_02_24_222514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assessments", force: :cascade do |t|
+    t.integer "rating"
+    t.bigint "user_id", null: false
+    t.bigint "tournament_id", null: false
+    t.bigint "player_id", null: false
+    t.string "assessment_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id"], name: "index_assessments_on_player_id"
+    t.index ["tournament_id"], name: "index_assessments_on_tournament_id"
+    t.index ["user_id"], name: "index_assessments_on_user_id"
+  end
+
+  create_table "entries", force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.bigint "tournament_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_id"], name: "index_entries_on_team_id"
+    t.index ["tournament_id"], name: "index_entries_on_tournament_id"
+  end
 
   create_table "players", force: :cascade do |t|
     t.string "first_name"
@@ -54,5 +76,10 @@ ActiveRecord::Schema.define(version: 2021_02_24_115546) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "assessments", "players"
+  add_foreign_key "assessments", "tournaments"
+  add_foreign_key "assessments", "users"
+  add_foreign_key "entries", "teams"
+  add_foreign_key "entries", "tournaments"
   add_foreign_key "players", "teams"
 end

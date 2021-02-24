@@ -7,4 +7,8 @@ class Api::V1::TournamentsController < ApplicationController
         @tournament = Tournament.find(params[:id])
         render json: @tournament
     end
+    def get_teams 
+        @tournament = Tournament.find(params[:tournament_id])
+        render json: @tournament.teams.all
+    end
 end

@@ -10,10 +10,12 @@ class Api::V1::PlayersController < ApplicationController
     def playerInfo
         @player = Player.find(params[:player_id])
         @team = Team.find(params[:team_id])
-        if @player.team == @team
+        @tournament = Tournament.find(params[:tournament_id])
+
+        if (@tournament.teams.include?(@team)) && (@player.team == @team)            
             render json: @player
         else
-            render json: { error: 'Player does not exist on this team' }, status: :not_acceptable
+            render json: { error: 'Player is not on this team' }, status: :not_acceptable
         end
     end
 end

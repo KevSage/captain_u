@@ -16,11 +16,13 @@ sage = User.create(email: "sagekevin@stacksports.com", password: "testtest")
 10.times do
     # Each Tournament has 8 teams
     # Each Team has 20 players 
+    random_tournament = ["Invitational", "Tournament", "Classic", "Jam", "Clash"].sample
+
     Tournament.create(
-      name: Faker::Educator.university + " Women's Invitational",
+      name: Faker::Educator.university + " Women's Basketball " + random_tournament,
       city: Faker::Address.city,
       state: Faker::Address.state,
-      start_date: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now, format: :long) 
+      start_date: Faker::Date.forward(days: 180) 
     )
 end
 
@@ -45,10 +47,26 @@ end
             team_id: Team.all.last.id
         )
     end
+    2.times do
+        random_tourney = Tournament.all.sample
+        Entry.create(
+            team_id: Team.all.last.id,
+            tournament_id: random_tourney.id   
+        )
+    end
 end
 
 
 #Assessments
-50.times do
-    # Create 50 Assessments
+1200.times do
+    # Create 1200 Assessments
+    random_tournament = Tournament.all.sample
+    team = random_tournament.teams.sample
+    Assessment.create(
+        rating: Faker::Number.between(from: 1, to: 10),
+        user_id: User.all.sample.id,
+        tournament_id: random_tournament.id,
+        player_id: team.players.sample.id,
+        assessment_type: "event"
+    )
 end
