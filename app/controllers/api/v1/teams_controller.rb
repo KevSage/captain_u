@@ -7,4 +7,8 @@ class Api::V1::TeamsController < ApplicationController
         @team = Team.find(params[:id])
         render json: @team
     end
+    def get_players  
+        @team = Team.find(params[:id])
+        render json: @team.players.all
+    end
 end

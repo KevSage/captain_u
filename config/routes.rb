@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
       resources :tournaments, :teams, :players, only:[:index, :show]
+      get '/teams/:id/players', to: 'teams#get_players'
+      get '/teams/:team_id/players/:player_id', to: 'players#playerInfo'
     end
   end
 end

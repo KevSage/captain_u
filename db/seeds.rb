@@ -17,8 +17,8 @@ sage = User.create(email: "sagekevin@stacksports.com", password: "testtest")
     # Each Tournament has 8 teams
     # Each Team has 20 players 
     Tournament.create(
-      name: Faker::Educator.university + "Women's Invitational",
-      city: Faker::WorldCup.city,
+      name: Faker::Educator.university + " Women's Invitational",
+      city: Faker::Address.city,
       state: Faker::Address.state,
       start_date: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now, format: :long) 
     )
