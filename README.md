@@ -1,24 +1,32 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an API that was spun up at the request of the great individuals at Stack Sports. The API contains endpoints to various tournament related sports stats such as tournament info, teams, players and assessments.
 
-Things you may want to cover:
+### Install Dependencies
 
-* Ruby version
+    bundle install
 
-* System dependencies
+### Initialize the database
 
-* Configuration
+```shell
+rails db:create db:migrate db:seed
+```
 
-* Database creation
+### Start the server
 
-* Database initialization
+    rails s
 
-* How to run the test suite
+### Login
 
-* Services (job queues, cache servers, search engines, etc.)
+You can create a new user by submitting a POST request to http://localhost:3000/api/v1/users and providing an email and password.
 
-* Deployment instructions
+You can also use a sample account I've created by submitting a POST request to http://localhost:3000/api/v1/login and providing the following.
 
-* ...
+```
+{
+	"user" : {
+		"email": "kevinsage@stacksports.com",
+		"password": "testing"
+	}
+}
+```
